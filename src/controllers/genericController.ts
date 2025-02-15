@@ -12,6 +12,23 @@ export class GenericController<T> {
       next(error);
     }
   };
+  
+  public getByQuery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const query = req.query as unknown as Partial<T>; // Explicitly cast req.query to Partial<T>
+      const docs = await this.model.find(query);
+
+      if (!docs.length) {
+        res.status(404).json({ message: 'No documents found' });
+        return;
+      }
+
+      res.status(200).json(docs);
+    } catch (error) {
+      next(error);
+    }
+  };
+
 
   public update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {

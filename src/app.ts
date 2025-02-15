@@ -8,6 +8,8 @@ import eventRoutes from './routes/event/event.route.js';
 import userRoutes from './routes/user/user.route.js';
 import artistRoutes from './routes/artist/artist.route.js';
 import eventRegistratoinRoute from './routes/eventregistration/eventregistration.route.js'
+import artistReviews from './routes/review/review.js'
+import artistRating from './routes/rating/rating.js'
 import cookieParser from 'cookie-parser';
 
 
@@ -35,7 +37,8 @@ app.use('/api/events', eventRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/artist', artistRoutes);
 app.use('/api/bookticket', eventRegistratoinRoute);
-
+app.use('/api/review', artistReviews);
+app.use('/api/rating', artistRating);
 
 const PORT: number | string = 5000;
 

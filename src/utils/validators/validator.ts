@@ -63,3 +63,6 @@ export const bookFreeEventFields = [
   "userId" , 
   "eventId"
 ]
+export const reviewValidationFields = ["artistId", "userId", "reviewDescription", "rating"];
+
+export const ratingValidationFields = ["ratingCount", "rating"];
