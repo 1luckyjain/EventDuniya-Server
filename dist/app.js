@@ -13,8 +13,26 @@ import fileUpload from './routes/fileupload/fileuplad.js';
 import contact from './routes/artist/contact/contact.js';
 import savedArtist from './routes/user/favartist/favartist.js';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 const app = express();
 app.use(cookieParser(process.env.SECRET_COOKIE));
+app.set("trust proxy", 1);
+app.use(session({
+    secret: process.env.SECRET_COOKIE,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        collectionName: "sessions",
+    }),
+    cookie: {
+        secure: process.env.NODE_ENV === "production", // Secure only in production
+        sameSite: "none", // Required for cross-origin cookies
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
+    },
+}));
 app.use(cors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
