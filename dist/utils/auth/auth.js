@@ -15,7 +15,8 @@ export const generateJWT = (userId, secret, expirationTime) => {
 export const clearTokens = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.clearCookie('refreshToken', {
         httpOnly: true,
-        secure: !dev,
+        secure: true,
+        sameSite: "none",
         signed: true,
     });
 });

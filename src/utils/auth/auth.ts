@@ -10,7 +10,8 @@ export const generateJWT = (userId: string | number, secret: string, expirationT
 export const clearTokens = async (req: Request, res: Response): Promise<void> => {
   res.clearCookie('refreshToken', {
     httpOnly: true,
-    secure: !dev,
+    secure: true,
+    sameSite: "none",
     signed: true,
   });
 };

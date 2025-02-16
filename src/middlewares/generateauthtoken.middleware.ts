@@ -45,14 +45,14 @@ export const generateAuthTokens = async (
       ACCESS_TOKEN_SECRET as string,
       ACCESS_TOKEN_LIFE_SECOND
     );
-
+    
     const refreshDuration = REFRESH_TOKEN_LIFE_SECOND * 1000; // in ms
     const accessDuration = ACCESS_TOKEN_LIFE_SECOND * 1000; // in ms
 
     res.cookie("refreshToken", refreshToken, {
       expires: new Date(Date.now() + refreshDuration),
-      httpOnly: true,        
-      secure: !dev,                      
+      secure: true,
+      sameSite: "none",           
     });
 
 
