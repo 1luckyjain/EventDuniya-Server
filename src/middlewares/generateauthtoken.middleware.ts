@@ -28,7 +28,6 @@ export const generateAuthTokens = async (
     let foundUser: any = await User.findById(req.userId);
     if (!foundUser) {
       foundUser = await Artist.findById(req.userId);
-      return ; 
     }
     if (!foundUser) {
       res.status(404).json({ error: 'User not found' });
@@ -51,7 +50,9 @@ export const generateAuthTokens = async (
     const accessDuration = ACCESS_TOKEN_LIFE_SECOND * 1000; // in ms
 
     res.cookie("refreshToken", refreshToken, {
-      expires: new Date(Date.now() + refreshDuration)
+      expires: new Date(Date.now() + refreshDuration),
+      httpOnly: true,        
+      secure: !dev,                      
     });
 
 

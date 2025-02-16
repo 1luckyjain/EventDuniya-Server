@@ -4,6 +4,7 @@ import { clearTokens, generateJWT } from '../../../utils/auth/auth.js';
 import { Request, Response, NextFunction } from 'express';
 import User from '../../../models/User.js';
 import dotenv from 'dotenv';
+import Artist from '../../../models/Artist.js';
 dotenv.config();
 
 interface DecodedToken {
@@ -19,7 +20,6 @@ export const refreshAccessToken = async (
   next: NextFunction
 ): Promise<void> => {
   const cookies = req.headers.cookie?.split('; ');
-
   if (!cookies?.length) {
     return ;
   }
@@ -43,8 +43,12 @@ export const refreshAccessToken = async (
       const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET) as DecodedToken;
       const { userId } = decoded;
 
-      const user = await User.findById(userId);
+      let user = await User.findById(userId);
+      if(!user){
+        user = await Artist.findById(userId);
+      }
       if (!user) {
+        console.log("yeah");
         await clearTokens(req, res);
         throw createError.Unauthorized();
       }

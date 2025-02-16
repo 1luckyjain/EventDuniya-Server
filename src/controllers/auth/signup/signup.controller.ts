@@ -36,6 +36,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
         facebook,
         tiktok
       } = req.body as IArtist;
+ 
       const artistAlreadyExists = await Artist.findOne({ $or: [{ username }, { email }] });
       if (artistAlreadyExists) {
         res.status(422).json({ error: 'Username or email already exists' });
@@ -46,7 +47,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
         email,
         password,
         role: 'Artist',
-        avatars: avatars || [],
+        avatars,
         city,
         state,
         country,
@@ -63,7 +64,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction): P
         facebook,
         tiktok
       });
-
+   
       (req as any).userId = newArtist._id;
     } else {
 

@@ -10,4 +10,5 @@ const router: Router = Router();
 router.get('/list', userController.getAll);
 router.get('/:id', isAuthenticated('user'), userController.get);
 router.post('/events'  , getUserEventIds)
+
 export default router;

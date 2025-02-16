@@ -5,6 +5,8 @@ import { IContactForm } from "./types/IContact";
 
 const ContactFormSchema = new Schema<IContactForm>(
   {
+    userId: { type: String, required: true },
+    artistId: { type: String, required: true },
     name: { type: String },
     email: { type: String, required: true },
     phone: { type: String },

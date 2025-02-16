@@ -7,21 +7,22 @@ import authRoutes from './routes/auth/auth.route.js';
 import eventRoutes from './routes/event/event.route.js';
 import userRoutes from './routes/user/user.route.js';
 import artistRoutes from './routes/artist/artist.route.js';
-import eventRegistratoinRoute from './routes/eventregistration/eventregistration.route.js'
-import artistReviews from './routes/review/review.js'
-import artistRating from './routes/rating/rating.js'
-import cookieParser from 'cookie-parser';
+import eventRegistratoinRoute from './routes/event/eventregistration/eventregistration.route.js'
+import artistReviews from './routes/artist/review/review.js'
+import fileUpload from './routes/fileupload/fileuplad.js'
+import contact from './routes/artist/contact/contact.js'
+import savedArtist from './routes/user/favartist/favartist.js'
 
+import cookieParser from 'cookie-parser';
 
 const app: Express = express();
 
 app.use(cookieParser(process.env.SECRET_COOKIE));
 
-// Set up CORS to allow requests from your React Vite dev server (default port 5173)
 app.use(
   cors({
-    origin: 'http://localhost:5173', // Adjust if your frontend is hosted elsewhere
-    credentials: true, // Allow cookies to be sent
+    origin: process.env.FRONTEND_URL, 
+    credentials: true, 
   })
 );
 
@@ -31,14 +32,15 @@ app.use(express.urlencoded({ extended: true }));
 
 connectToDatabase();
 
-
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/artist', artistRoutes);
 app.use('/api/bookticket', eventRegistratoinRoute);
 app.use('/api/review', artistReviews);
-app.use('/api/rating', artistRating);
+app.use('/api/image', fileUpload);
+app.use('/api/contact' , contact);
+app.use('/api/savedartist' , savedArtist)
 
 const PORT: number | string = 5000;
 

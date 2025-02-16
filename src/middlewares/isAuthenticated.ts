@@ -64,15 +64,16 @@ export const isAuthenticated = (userType: 'user' | 'artist' | 'user&artist') => 
       }
       
       const { userId } = decodedToken;
-   
+  
+ 
       let foundUser: any;
       if (userType === 'artist' || userType === 'user&artist') {
         foundUser = await Artist.findById(userId);
       } 
-      if(userType ==='user' || userType === 'user&artist') {
+      if(!foundUser && (userType ==='user' || userType === 'user&artist')) {
         foundUser = await User.findById(userId);
       }
-      
+   
       if (!foundUser) {
         next(createError.Unauthorized());
         return;

@@ -20,10 +20,6 @@ export const validateFields = (data: any, requiredFields: string[]): string | nu
     'bio',
     'videoLink1',
     'instagram',
-    'twitter',
-    'youtube',
-    'facebook',
-    'tiktok',
      'role'
   ];
   
@@ -50,13 +46,13 @@ export const mandatoryFieldsForEvent = [
 
 
 export const contactFormFields = [
+  "userId" , 
+  "artistId",
   "name",
   "email",
   "phone",
   "subject",
   "message",
-  "createdAt",
-  "updatedAt",
 ];
 
 export const bookFreeEventFields = [
@@ -66,3 +62,5 @@ export const bookFreeEventFields = [
 export const reviewValidationFields = ["artistId", "userId", "reviewDescription", "rating"];
 
 export const ratingValidationFields = ["ratingCount", "rating"];
+
+export const savedArtistFields = ["userId" , "artistId"];

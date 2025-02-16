@@ -75,4 +75,20 @@ export class GenericController<T> {
       next(error);
     }
   };
+
+  public deleteByQuery = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const query = req.query as unknown as Partial<T>;
+      const result = await this.model.deleteMany(query);
+
+      if (result.deletedCount === 0) {
+        res.status(404).json({ message: 'No documents found to delete' });
+        return;
+      }
+      
+      res.status(200).json({ message: 'Documents deleted successfully', result });
+    } catch (error) {
+      next(error);
+    }
+};
 }
