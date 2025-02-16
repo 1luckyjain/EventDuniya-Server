@@ -42,7 +42,8 @@ app.use('/api/image', fileUpload);
 app.use('/api/contact' , contact);
 app.use('/api/savedartist' , savedArtist)
 
-const PORT: number | string = 5000;
+const PORT: number | string = process.env.PORT || 5000;
+
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
